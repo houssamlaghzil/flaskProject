@@ -48,10 +48,10 @@
             alert("Evènement de click détecté");
         }
 
-        $.getJSON('https://entreprise.data.gouv.fr/api/sirene/v1/siren/' + sirenId + '/', function (data) {
+        $.getJSON('https://entreprise.data.gouv.fr/api/sirene/v3/unites_legales/'+sirenId, function (data) {
 
-            text = `nom: ${data.siege_social.l1_normalisee}<br>
-                    siren: ${data.siege_social.siren}`;
+            text = `nom: ${data.unite_legale.denomination}<br>
+                    siren: ${data.unite_legale.siren}`;
 
             $(".mypanel").html(text);
         });
