@@ -6,7 +6,64 @@
     <title>donner</title>
 </head>
 <body>
-<iframe src="https://opendata.datainfogreffe.fr/explore/embed/dataset/chiffres-cles-2018/table/?lang=fr&q=&dataChart=eyJxdWVyaWVzIjpbeyJjb25maWciOnsiZGF0YXNldCI6ImNoaWZmcmVzLWNsZXMtMjAxOCIsIm9wdGlvbnMiOnt9fSwiY2hhcnRzIjpbeyJhbGlnbk1vbnRoIjp0cnVlLCJ0eXBlIjoibGluZSIsImZ1bmMiOiJBVkciLCJ5QXhpcyI6ImNvZGVfcG9zdGFsIiwic2NpZW50aWZpY0Rpc3BsYXkiOnRydWUsImNvbG9yIjoiIzY2YzJhNSJ9XSwieEF4aXMiOiJkYXRlX2RlX2Nsb3R1cmVfZXhlcmNpY2VfMyIsIm1heHBvaW50cyI6IiIsInRpbWVzY2FsZSI6InllYXIiLCJzb3J0IjoiIn1dLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlfQ%3D%3D&static=false&datasetcard=false" width="100%" height="750" ></iframe>
+
+<iframe src="https://public.opendatasoft.com/explore/embed/dataset/sirene_v3/table/?flg=fr&disjunctive.libellecommuneetablissement&disjunctive.etatadministratifetablissement&disjunctive.sectionetablissement&disjunctive.naturejuridiqueunitelegale&sort=datecreationetablissement&static=false&datasetcard=false"
+        width="100%" height="600" frameborder="0"></iframe>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+
+</script>
+
+<label for="in">
+    <input type="text" placeholder="Entrez une valeur ici" id="in">
+</label>
+<button type="button" onclick="recupText();">Récupérer la valeur</button>
+
+
+<script type="text/javascript">
+
+    function recupText() {
+            var sirenId = document.getElementById("in").value;
+        function getValue() {
+            // Sélectionner l'élément input et récupérer sa valeur
+            sirenId = document.getElementById("in").value;
+            // Afficher la valeur
+            alert(sirenId);
+            return sirenId;
+        }
+        console.log("s="+ sirenId);
+
+
+        function initElement() {
+            getValue();
+            p = document.getElementById("foo");
+            // NOTE: showAlert(); ou showAlert(param); NE fonctionne PAS ici.
+            // Il faut fournir une valeur de type function (nom de fonction déclaré ailleurs ou declaration en ligne de fonction).
+            p.onclick = showAlert;
+
+        }
+
+        function showAlert() {
+            initElement();
+            alert("Evènement de click détecté");
+        }
+
+        $.getJSON('https://entreprise.data.gouv.fr/api/sirene/v1/siren/' + sirenId + '/', function (data) {
+
+            text = `nom: ${data.siege_social.l1_normalisee}<br>
+                    siren: ${data.siege_social.siren}`;
+
+            $(".mypanel").html(text);
+        });
+    }
+</script>
+
+
+<section>
+    <div class="mypanel"></div>
+
+
+</section>
 
 </body>
 </html>
