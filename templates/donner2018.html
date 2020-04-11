@@ -15,15 +15,21 @@
 </script>
 
 <label for="in">
-    <input type="text" placeholder="Entrez une valeur ici" id="in">
+    <textarea type="text" placeholder="Entrez une valeur ici" id="in"> </textarea>
 </label>
-<button type="button" onclick="recupText();">Récupérer la valeur</button>
+<button type="button" onclick="recupText();">siren</button>
+<label for="in2">
+    <textarea type="text" placeholder="Entrez une valeur ici" id="in2"> </textarea>
+</label>
+<button type="button" onclick="recupText();">nom d'établisement</button>
 
 
 <script type="text/javascript">
 
     function recupText() {
-            var sirenId = document.getElementById("in").value;
+        var sirenId = document.getElementById("in").value;
+        const nomId = document.getElementById("in2").value;
+
         function getValue() {
             // Sélectionner l'élément input et récupérer sa valeur
             sirenId = document.getElementById("in").value;
@@ -31,7 +37,9 @@
             alert(sirenId);
             return sirenId;
         }
-        console.log("s="+ sirenId);
+
+        console.log("s=" + sirenId);
+        console.log("s=" + nomId);
 
 
         function initElement() {
@@ -48,13 +56,28 @@
             alert("Evènement de click détecté");
         }
 
-        $.getJSON('https://entreprise.data.gouv.fr/api/sirene/v3/unites_legales/'+sirenId, function (data) {
+        if (sirenId === ' ') {
+            console.log("if siren");
+            $.getJSON('https://entreprise.data.gouv.fr/api/sirene/v3/unites_legales/?dataset=chiffres-cles-2018&facet='+nomId, function (data) {
 
-            text = `nom: ${data.unite_legale.denomination}<br>
-                    siren: ${data.unite_legale.siren}`;
+                text = `nom: ${data.unites_legales[1].siren}`;
+                $(".mypanel").html(text);
 
-            $(".mypanel").html(text);
-        });
+            });
+
+        }
+        if (nomId === ' ') {
+            console.log("if nom");
+
+            $.getJSON('https://entreprise.data.gouv.fr/api/sirene/v3/unites_legales/' + sirenId + '/', function (data) {
+
+                text = `nom: ${data.unite_legale.denomination}<br>
+                    siren: ${data.unite_legale.siren}<br>
+                    prenom_usuel: ${data.unite_legale.prenom_usuel}`;
+
+                $(".mypanel").html(text);
+            });
+        }
     }
 </script>
 
