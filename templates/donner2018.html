@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/css/style.css"/>
+    <link rel="stylesheet" href="../static/css/scss.css"/>
+
     <title>donner</title>
 </head>
 <body>
+<div class="center-div">
 
-<iframe src="https://public.opendatasoft.com/explore/embed/dataset/sirene_v3/table/?flg=fr&disjunctive.libellecommuneetablissement&disjunctive.etatadministratifetablissement&disjunctive.sectionetablissement&disjunctive.naturejuridiqueunitelegale&sort=datecreationetablissement&static=false&datasetcard=false"
-        width="100%" height="600" frameborder="0"></iframe>
+<header>
+    <a href="http://managia.fr/">
+            <img src="https://lh3.googleusercontent.com/proxy/UnWIx_hS4nutxtJTjmFLe-pzOpZIs4gyAuEtFSTxhE_5InnvslUFT5OZ02nR2dhipSx03gaMuP6ILUyXKRlvZd2K20HmD7ZgTiY2UrElNRx5E-durDKkTBCJFkRGlpTxfw" alt="logo managia">
+    </a>
+    <h1><strong>recherche</strong> d'entreprise</h1>
+</header>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 
-</script>
 
-<label for="in">
-    <textarea type="text" placeholder="Entrez une valeur ici" id="in"> </textarea>
-</label>
-<button type="button" onclick="recupText();">siren</button>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
 <label for="in2">
-    <textarea type="text" placeholder="Entrez une valeur ici" id="in2"> </textarea>
+    <textarea style="width:100%; z-index: 999999" cols="8" rows="2" placeholder="nom de l'entreprise"  type="text" id="in2"></textarea>
 </label>
-<button type="button" onclick="recupText();">nom d'établisement</button>
 
+<button style="z-index: 999999" type="button" onclick="recupText();">nom d'établisement</button>
 
 <script type="text/javascript">
 
     function recupText() {
-        var sirenId = document.getElementById("in").value;
         const nomId = document.getElementById("in2").value;
 
         function getValue() {
@@ -38,7 +40,6 @@
             return sirenId;
         }
 
-        console.log("s=" + sirenId);
         console.log("s=" + nomId);
 
 
@@ -55,38 +56,61 @@
             initElement();
             alert("Evènement de click détecté");
         }
+ $.getJSON('https://opendata.datainfogreffe.fr/api/records/1.0/search/?dataset=chiffres-cles-2019&facet='+nomId+'', function (data) {
 
-        if (sirenId === ' ') {
-            console.log("if siren");
-            $.getJSON('https://entreprise.data.gouv.fr/api/sirene/v3/unites_legales/?dataset=chiffres-cles-2018&facet='+nomId, function (data) {
+                text = `nom: ${data.records[0].fields.denomination}<br>
+                    tranche_ca_millesime_1: ${data.records[0].fields.tranche_ca_millesime_1}<br>
+                    tranche_ca_millesime_2: ${data.records[0].fields.tranche_ca_millesime_2}<br>
+                    tranche_ca_millesime_3: ${data.records[0].fields.tranche_ca_millesime_2}<br>
+                    Nic: ${data.records[0].fields.nic}<br>
+                    Siren: ${data.records[0].fields.siren}<br>
+                    Forme juridique: ${data.records[0].fields.forme_juridique}<br>
+                    Code APE: ${data.records[0].fields.code_ape}<br>
+                    Libellé APE: ${data.records[0].fields.libelle_ape}<br>
+                    Adresse: ${data.records[0].fields.adresse}<br>
+                    Code postal: ${data.records[0].fields.code_postal}<br>
+                    ville: ${data.records[0].fields.ville}<br>
+                    Num. dept.: ${data.records[0].fields.num_dept}<br>
+                    Département: ${data.records[0].fields.departement}<br>
+                    Région: ${data.records[0].fields.region}<br>
+                    Code Greffe: ${data.records[0].fields.code_greffe}<br>
+                    Greffe: ${data.records[0].fields.greffe}<br>
+                    Date immatriculation: ${data.records[0].fields.date_immatriculation}<br>
+                    Date radiation: ${data.records[0].fields.date_radiation}<br>
+                    statut: ${data.records[0].fields.statut}<br>
+                    Geolocalisation: ${data.records[0].fields.geolocalisation}<br>
+                    Date de publication: ${data.records[0].fields.date_de_publication}<br>
+                    Millesime 1: ${data.records[0].fields.millesime_1}<br>
+                    Date de cloture exercice 1: ${data.records[0].fields.date_de_cloture_exercice_1}<br>
+                    Durée 1: ${data.records[0].fields.duree_1}<br>
+                    CA 1: ${data.records[0].fields.tranche_ca_millesime_1}<br>
+                    Résultat 1: ${data.records[0].fields.resultat_1}<br>
+                    Effectif 1: ${data.records[0].fields.effectif_1}<br>
+                    Millesime 2: ${data.records[0].fields.millesime_2}<br>
+                    Date de cloture exercice 2: ${data.records[0].fields.date_de_cloture_exercice_2}<br>
+                    Durée 2: ${data.records[0].fields.duree_2}<br>
+                    CA 2: ${data.records[0].fields.tranche_ca_millesime_2}<br>
+                    Résultat 2: ${data.records[0].fields.resultat_2}<br>
+                    Effectif 2: ${data.records[0].fields.effectif_2}<br>
+                    Millesime 3: ${data.records[0].fields.millesime_3}<br>
+                    Date de cloture exercice 3: ${data.records[0].fields.date_de_cloture_exercice_3}<br>
+                    Durée 3: ${data.records[0].fields.duree_3}<br>
+                    CA 3: ${data.records[0].fields.tranche_ca_millesime_3}<br>
+                    Résultat 3: ${data.records[0].fields.resultat_3}<br>
+                    Effectif 3: ${data.records[0].fields.effectif_3}<br>
+                    <a href= "${data.records[0].fields.fiche_identite}">fiche_identite </a> <br>`;
 
-                text = `nom: ${data.unites_legales[1].siren}`;
+
                 $(".mypanel").html(text);
-
             });
-
-        }
-        if (nomId === ' ') {
-            console.log("if nom");
-
-            $.getJSON('https://entreprise.data.gouv.fr/api/sirene/v3/unites_legales/' + sirenId + '/', function (data) {
-
-                text = `nom: ${data.unite_legale.denomination}<br>
-                    siren: ${data.unite_legale.siren}<br>
-                    prenom_usuel: ${data.unite_legale.prenom_usuel}`;
-
-                $(".mypanel").html(text);
-            });
-        }
     }
 </script>
 
-
 <section>
-    <div class="mypanel"></div>
-
-
+    <div style="z-index: 999999" class="mypanel"></div>
 </section>
+
+</div>
 
 </body>
 </html>
