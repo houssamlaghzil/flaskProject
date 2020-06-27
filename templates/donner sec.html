@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/style.css"/>
+    <link rel="stylesheet" href="../static/css/scss.css"/>
+
+    <title>donner secteur</title>
+</head>
+<body>
+<div class="center-div">
+
+    <header>
+        <a href="http://managia.fr/">
+            <img src="{{url_for('static', filename='350x100.jpg')}}" alt="managialogo">
+        </a>
+    <h1><strong>recherche</strong> de secteur</h1>
+</header>
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<label for="in2">
+    <textarea style="width:100%; z-index: 999999" cols="8" rows="2" placeholder="nom du secteur"  type="text" id="in2"></textarea>
+</label>
+
+<button style="z-index: 999999" type="button" onclick="recupText();">nom du secteur</button>
+
+<script type="text/javascript">
+
+    function recupText() {
+        const nomId = document.getElementById("in2").value;
+
+        function getValue() {
+            // Sélectionner l'élément input et récupérer sa valeur
+            sirenId = document.getElementById("in").value;
+            // Afficher la valeur
+            alert(sirenId);
+            return sirenId;
+        }
+
+        console.log("s=" + nomId);
+
+
+        function initElement() {
+            getValue();
+            p = document.getElementById("foo");
+            // NOTE: showAlert(); ou showAlert(param); NE fonctionne PAS ici.
+            // Il faut fournir une valeur de type function (nom de fonction déclaré ailleurs ou declaration en ligne de fonction).
+            p.onclick = showAlert;
+
+        }
+
+        function showAlert() {
+            initElement();
+            alert("Evènement de click détecté");
+        }
+ $.getJSON('https://opendata.datainfogreffe.fr/api/records/1.0/search/?dataset=chiffres-cles-2019&path='+nomId+'', function (data) {
+
+                text = `
+                    tranche_ca_millesime_1: ${data.records[0].fields.tranche_ca_millesime_1}<br>
+                    tranche_ca_millesime_2: ${data.records[0].fields.tranche_ca_millesime_2}<br>
+                    tranche_ca_millesime_3: ${data.records[0].fields.tranche_ca_millesime_2}<br>
+                    Forme juridique: ${data.records[0].fields.forme_juridique}<br>
+                    Code Greffe: ${data.records[0].fields.code_greffe}<br>
+                    Greffe: ${data.records[0].fields.greffe}<br>
+                    Date immatriculation: ${data.records[0].fields.date_immatriculation}<br>
+                    Date radiation: ${data.records[0].fields.date_radiation}<br>
+                    statut: ${data.records[0].fields.statut}<br>
+                    Date de publication: ${data.records[0].fields.date_de_publication}<br>
+                    Millesime 1: ${data.records[0].fields.millesime_1}<br>
+                    Date de cloture exercice 1: ${data.records[0].fields.date_de_cloture_exercice_1}<br>
+                    Durée 1: ${data.records[0].fields.duree_1}<br>
+                    CA 1: ${data.records[0].fields.tranche_ca_millesime_1}<br>
+                    Résultat 1: ${data.records[0].fields.resultat_1}<br>
+                    Effectif 1: ${data.records[0].fields.effectif_1}<br>
+                    Millesime 2: ${data.records[0].fields.millesime_2}<br>
+                    Date de cloture exercice 2: ${data.records[0].fields.date_de_cloture_exercice_2}<br>
+                    Durée 2: ${data.records[0].fields.duree_2}<br>
+                    CA 2: ${data.records[0].fields.tranche_ca_millesime_2}<br>
+                    Résultat 2: ${data.records[0].fields.resultat_2}<br>
+                    Effectif 2: ${data.records[0].fields.effectif_2}<br>
+                    Millesime 3: ${data.records[0].fields.millesime_3}<br>
+                    Date de cloture exercice 3: ${data.records[0].fields.date_de_cloture_exercice_3}<br>
+                    Durée 3: ${data.records[0].fields.duree_3}<br>
+                    CA 3: ${data.records[0].fields.tranche_ca_millesime_3}<br>
+                    Résultat 3: ${data.records[0].fields.resultat_3}<br>
+                    Effectif 3: ${data.records[0].fields.effectif_3}<br>`;
+
+
+                $(".mypanel").html(text);
+            });
+    }
+</script>
+
+<section>
+    <div style="z-index: 999999" class="mypanel"></div>
+</section>
+
+</div>
+
+<footer>
+    <a href="donner2018.html">recherche par nom</a>
+</footer>
+
+</body>
+</html>
